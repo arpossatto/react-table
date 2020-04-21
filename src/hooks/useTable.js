@@ -545,7 +545,7 @@ function accessRowsForColumn({
       rowsById[id] = row
 
       // Get the original subrows
-      row.originalSubRows = getSubRows(originalRow, rowIndex)
+      row.originalSubRows = originalRow ? getSubRows(originalRow, rowIndex) : [];
 
       // Then recursively access them
       if (row.originalSubRows) {
@@ -565,7 +565,7 @@ function accessRowsForColumn({
 
     // If the column has an accessor, use it to get a value
     if (column.accessor) {
-      row.values[column.id] = column.accessor(originalRow, rowIndex, row)
+      row.values[column.id] = originalRow ? column.accessor(originalRow, rowIndex, row) : '';
     }
 
     // Allow plugins to manipulate the column value
